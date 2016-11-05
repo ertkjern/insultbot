@@ -2,7 +2,9 @@
  * 
  *  SUPER CRAPPY BOT THAT INSULT PEOPLE WITH CLASSICAL YO MAMA JOKES:
  * 
- * To get it working run the following NPM-command: npm install --save @slack/client
+ * To get it working run the following NPM-command: npm install --save @slack.
+ * 
+ * Run with node index.js
  * 
  *  The jokes are retrived from http://api.yomomma.info/.
  * 
@@ -21,6 +23,7 @@ var token = ''; //token to add
 var rtm = new RtmClient(token, {logLevel: 'info' }); 
 
 rtm.start();
+startMessage(); 
 
 rtm.on(RTM_EVENTS.MESSAGE, function(message){
     var channel = message.channel;
@@ -29,14 +32,15 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message){
     console.log("Incoming Message: " + text)
 
     if(text == "!insultbot help"){    
-        rtm.sendMessage(GetHelpCommands(), channel); 
+        rtm.sendMessage(getHelpCommands(), channel); 
     }
     if(text.indexOf("!insultbot") !== -1){
         if(text.indexOf("@") !== 1){
-            var username = GetUsernameFromText(text);
+            var username = getUsernameFromText(text);
             if(username){
-                GetRandomYoMamaJoke(function(joke){
+                getRandomYoMamaJoke(function(joke){
                     var jokeString = username + ', ' + joke;
+                    console.log("Insulttime: " + jokeString)
                     rtm.sendMessage(jokeString, channel);
                 });  
             }else{
@@ -46,9 +50,13 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message){
     }
 });
 
+function startMessage(){
+    console.log("Starting up insult bot!")
+    console.log("Ready to insult!")
+}
 
 
-function GetHelpCommands(){
+function getHelpCommands(){
     return `
            This is the commands that I do understand: 
 
@@ -59,7 +67,7 @@ function GetHelpCommands(){
            `
 }
 
-function GetUsernameFromText(text){
+function getUsernameFromText(text){
     var splittedText = text.split(" "); 
     var username = "";
     splittedText.forEach(function(item, index){
@@ -71,7 +79,7 @@ function GetUsernameFromText(text){
     
 }
 
-function GetRandomYoMamaJoke(callback){
+function getRandomYoMamaJoke(callback){
     var request = require('request');
     request('http://api.yomomma.info/', function (error, response, body) {
     if (!error && response.statusCode == 200) {
