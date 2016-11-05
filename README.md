@@ -22,7 +22,7 @@ Add token to the index.js file, you can grab this from your slack channel, and i
   
 Then you can run the project in the command line calling the following command:
 
-			npm start
+			node index.js
   
   
  
