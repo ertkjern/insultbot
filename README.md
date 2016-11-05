@@ -1,8 +1,12 @@
 # insultbot
 
-### Warning: 
-### The following project was made just for fun, really quick. Not very good, and not tested, at all. 
-### Use it as you like. 
+
+### INFO
+ 
+ The following project was made just for fun, really quick. Not very good, and not tested, at all. 
+ Use it as you like. 
+
+### INSTALL 
 
 The bot insult people if you call the bot and include their username like this:
 
