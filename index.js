@@ -30,21 +30,22 @@ rtm.on(RTM_EVENTS.MESSAGE, function(message){
     var text = message.text;
     
     console.log("Incoming Message: " + text)
-
-    if(text == "!insultbot help"){    
-        rtm.sendMessage(getHelpCommands(), channel); 
-    }
-    if(text.indexOf("!insultbot") !== -1){
-        if(text.indexOf("@") !== 1){
-            var username = getUsernameFromText(text);
-            if(username){
-                getRandomYoMamaJoke(function(joke){
-                    var jokeString = username + ', ' + joke;
-                    console.log("Insulttime: " + jokeString)
-                    rtm.sendMessage(jokeString, channel);
-                });  
-            }else{
-                rtm.sendMessage("Give me someone to insult, I need an @ in front of the name as well", channel);
+    if(text){
+        if(text == "!insultbot help"){    
+            rtm.sendMessage(getHelpCommands(), channel); 
+        }
+        if(text.indexOf("!insultbot") !== -1){
+            if(text.indexOf("@") !== 1){
+                var username = getUsernameFromText(text);
+                if(username){
+                    getRandomYoMamaJoke(function(joke){
+                        var jokeString = username + ', ' + joke;
+                        console.log("Insulttime: " + jokeString)
+                        rtm.sendMessage(jokeString, channel);
+                    });  
+                }else{
+                    rtm.sendMessage("Give me someone to insult, I need an @ in front of the name as well", channel);
+                }
             }
         }
     }
